@@ -33,7 +33,6 @@ public class MatrixCalculator {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                // Generating random numbers in the range from -100 to 100
                 matrix[i][j] = random.nextInt(MAX_OF_MATRIX_ELEMENTS * 2 + 1) - MAX_OF_MATRIX_ELEMENTS; // Min -100, max 100
             }
         }
@@ -92,7 +91,7 @@ public class MatrixCalculator {
             }
         }
 
-        // If there are no negative numbers, calculate the geometric mean
+        // calculate the geometric mean
         double product = 1;
         int totalElements = 0;
 
