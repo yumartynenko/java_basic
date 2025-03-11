@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class MatrixCalculator {
 
     // Константи для діапазону випадкових чисел
-    private static final int MIN_VALUE = -100;
+    private static final int MIN_VALUE = 1;  // Для середнього геометричного використовуємо лише додатні числа
     private static final int MAX_VALUE = 100;
     private static final int MAX_SIZE = 20;
 
@@ -33,7 +33,7 @@ public class MatrixCalculator {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                matrix[i][j] = random.nextInt(MAX_VALUE - MIN_VALUE + 1) + MIN_VALUE;
+                matrix[i][j] = random.nextInt(MAX_VALUE - MIN_VALUE + 1) + MIN_VALUE;  // Генерація лише додатніх чисел
             }
         }
 
@@ -83,15 +83,26 @@ public class MatrixCalculator {
     public static double calculateGeometricMean(int[][] matrix) {
         double product = 1;
         int totalElements = 0;
+        boolean hasPositive = false;  // Для перевірки наявності додатніх чисел
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
-                product *= matrix[i][j];
-                totalElements++;
+                int value = matrix[i][j];
+
+                // Виключаємо від'ємні числа та нулі
+                if (value > 0) {
+                    product *= value;
+                    totalElements++;
+                    hasPositive = true;
+                }
             }
         }
 
-        return Math.pow(product, 1.0 / totalElements);
+        if (hasPositive && totalElements > 0) {
+            return Math.pow(product, 1.0 / totalElements);  // середнє геометричне
+        } else {
+            return Double.NaN; // Якщо немає додатніх чисел
+        }
     }
 
     // Метод для виведення матриці
@@ -148,6 +159,6 @@ public class MatrixCalculator {
         System.out.println("Мінімальний елемент: " + min);
         System.out.println("Максимальний елемент: " + max);
         System.out.println("Середнє арифметичне: " + arithmeticMean);
-        System.out.println("Середнє геометричне: " + geometricMean);
+        System.out.println("Середнє геометричне: " + (Double.isNaN(geometricMean) ? "Неможливо обчислити" : geometricMean));
     }
 }
