@@ -10,7 +10,7 @@ public class MatrixCalculator {
     private static final int MAX_OF_MATRIX_ELEMENTS = 100;
     private static final int MAX_MATRIX_SIZE = 20;
 
-    // Method for manually creating the matrix
+    // Manually creating the matrix
     public static int[][] createMatrixManually(int rows, int cols) {
         Scanner scanner = new Scanner(System.in);
         int[][] matrix = new int[rows][cols];
@@ -26,7 +26,7 @@ public class MatrixCalculator {
         return matrix;
     }
 
-    // Method for randomly creating the matrix
+    // Randomly creating the matrix
     public static int[][] createMatrixRandomly(int rows, int cols) {
         Random random = new Random();
         int[][] matrix = new int[rows][cols];
@@ -66,7 +66,7 @@ public class MatrixCalculator {
         return max;
     }
 
-    // arithmetic mean
+    // Arithmetic mean
     public static double calculateArithmeticMean(int[][] matrix) {
         double sum = 0;
         int totalElements = 0;
@@ -79,7 +79,7 @@ public class MatrixCalculator {
         return sum / totalElements;
     }
 
-    // geometric mean
+    // Geometric mean
     public static double calculateGeometricMean(int[][] matrix) {
         // Check for negative numbers in the matrix
         for (int i = 0; i < matrix.length; i++) {
@@ -91,7 +91,7 @@ public class MatrixCalculator {
             }
         }
 
-        // calculate the geometric mean
+        // Calculate the geometric mean
         double product = 1;
         int totalElements = 0;
 
@@ -105,7 +105,7 @@ public class MatrixCalculator {
         return Math.pow(product, 1.0 / totalElements);
     }
 
-    // Method for printing the matrix
+    // Printing the matrix
     public static void printMatrix(int[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
@@ -129,7 +129,7 @@ public class MatrixCalculator {
             return;
         }
 
-        // Choose between manual input or random creation
+        // Manual input or random creation
         System.out.println("Choose the matrix creation method:");
         System.out.println("1. Manual input");
         System.out.println("2. Random creation");
@@ -149,7 +149,7 @@ public class MatrixCalculator {
         System.out.println("Matrix:");
         printMatrix(matrix);
 
-        // Calculating minimum, maximum, arithmetic mean
+        // Calculating
         int min = findMin(matrix);
         int max = findMax(matrix);
         double arithmeticMean = calculateArithmeticMean(matrix);
