@@ -33,7 +33,8 @@ public class MatrixCalculator {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                matrix[i][j] = random.nextInt(MAX_VALUE - MIN_VALUE + 1) + MIN_VALUE;  // Генерація лише додатніх чисел
+                // Генерація випадкових чисел в діапазоні від -100 до 100
+                matrix[i][j] = random.nextInt(MAX_VALUE * 2 + 1) - MAX_VALUE; // Мінімум -100, максимум 100
             }
         }
 
@@ -81,28 +82,28 @@ public class MatrixCalculator {
 
     // Метод для обчислення середнього геометричного елементів матриці
     public static double calculateGeometricMean(int[][] matrix) {
-        double product = 1;
-        int totalElements = 0;
-        boolean hasPositive = false;  // Для перевірки наявності додатніх чисел
-
+        // Перевірка на наявність негативних чисел у матриці
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
-                int value = matrix[i][j];
-
-                // Виключаємо від'ємні числа та нулі
-                if (value > 0) {
-                    product *= value;
-                    totalElements++;
-                    hasPositive = true;
+                if (matrix[i][j] < 0) {
+                    System.out.println("Не можна обчислити середнє геометричне, оскільки є від'ємні значення.");
+                    return Double.NaN;  // Повертаємо NaN, якщо є негативні числа
                 }
             }
         }
 
-        if (hasPositive && totalElements > 0) {
-            return Math.pow(product, 1.0 / totalElements);  // середнє геометричне
-        } else {
-            return Double.NaN; // Якщо немає додатніх чисел
+        // Якщо немає негативних чисел, обчислюємо середнє геометричне
+        double product = 1;
+        int totalElements = 0;
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                product *= matrix[i][j];
+                totalElements++;
+            }
         }
+
+        return Math.pow(product, 1.0 / totalElements);
     }
 
     // Метод для виведення матриці
