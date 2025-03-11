@@ -1,21 +1,21 @@
-package com.example.LR_2;
+package Lab.LR_2;
 
 import java.util.Random;
 import java.util.Scanner;
 
 public class MatrixCalculator {
 
-    // Константи для діапазону випадкових чисел
-    private static final int MIN_VALUE = 1;  // Для середнього геометричного використовуємо лише додатні числа
-    private static final int MAX_VALUE = 100;
-    private static final int MAX_SIZE = 20;
+    // Constants for the range of random numbers
+    private static final int MIN_OF_MATRIX_ELEMENTS = -100;
+    private static final int MAX_OF_MATRIX_ELEMENTS = 100;
+    private static final int MAX_MATRIX_SIZE = 20;
 
-    // Метод для створення матриці вручну
+    // Method for manually creating the matrix
     public static int[][] createMatrixManually(int rows, int cols) {
         Scanner scanner = new Scanner(System.in);
         int[][] matrix = new int[rows][cols];
 
-        System.out.println("Введіть елементи матриці:");
+        System.out.println("Enter the elements of the matrix:");
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 System.out.printf("matrix[%d][%d] = ", i, j);
@@ -26,22 +26,21 @@ public class MatrixCalculator {
         return matrix;
     }
 
-    // Метод для створення матриці випадковим чином
+    // Method for randomly creating the matrix
     public static int[][] createMatrixRandomly(int rows, int cols) {
         Random random = new Random();
         int[][] matrix = new int[rows][cols];
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                // Генерація випадкових чисел в діапазоні від -100 до 100
-                matrix[i][j] = random.nextInt(MAX_VALUE * 2 + 1) - MAX_VALUE; // Мінімум -100, максимум 100
+                matrix[i][j] = random.nextInt(MAX_OF_MATRIX_ELEMENTS * 2 + 1) - MAX_OF_MATRIX_ELEMENTS; // Min -100, max 100
             }
         }
 
         return matrix;
     }
 
-    // Метод для знаходження мінімального елемента матриці
+    // Method to find the minimum element in the matrix
     public static int findMin(int[][] matrix) {
         int min = matrix[0][0];
         for (int i = 0; i < matrix.length; i++) {
@@ -54,7 +53,7 @@ public class MatrixCalculator {
         return min;
     }
 
-    // Метод для знаходження максимального елемента матриці
+    // Method to find the maximum element in the matrix
     public static int findMax(int[][] matrix) {
         int max = matrix[0][0];
         for (int i = 0; i < matrix.length; i++) {
@@ -67,7 +66,7 @@ public class MatrixCalculator {
         return max;
     }
 
-    // Метод для обчислення середнього арифметичного елементів матриці
+    // arithmetic mean
     public static double calculateArithmeticMean(int[][] matrix) {
         double sum = 0;
         int totalElements = 0;
@@ -80,19 +79,19 @@ public class MatrixCalculator {
         return sum / totalElements;
     }
 
-    // Метод для обчислення середнього геометричного елементів матриці
+    // geometric mean
     public static double calculateGeometricMean(int[][] matrix) {
-        // Перевірка на наявність негативних чисел у матриці
+        // Check for negative numbers in the matrix
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
                 if (matrix[i][j] < 0) {
-                    System.out.println("Не можна обчислити середнє геометричне, оскільки є від'ємні значення.");
-                    return Double.NaN;  // Повертаємо NaN, якщо є негативні числа
+                    System.out.println("Geometric mean cannot be calculated because there are negative values.");
+                    return Double.NaN;
                 }
             }
         }
 
-        // Якщо немає негативних чисел, обчислюємо середнє геометричне
+        // calculate the geometric mean
         double product = 1;
         int totalElements = 0;
 
@@ -106,7 +105,7 @@ public class MatrixCalculator {
         return Math.pow(product, 1.0 / totalElements);
     }
 
-    // Метод для виведення матриці
+    // Method for printing the matrix
     public static void printMatrix(int[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
@@ -119,21 +118,21 @@ public class MatrixCalculator {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Введення розміру матриці
-        System.out.print("Введіть кількість рядків матриці: ");
+        // Entering the matrix size
+        System.out.print("Enter the number of rows for the matrix: ");
         int rows = scanner.nextInt();
-        System.out.print("Введіть кількість стовпців матриці: ");
+        System.out.print("Enter the number of columns for the matrix: ");
         int cols = scanner.nextInt();
 
-        if (rows > MAX_SIZE || cols > MAX_SIZE) {
-            System.out.println("Розмір матриці не може бути більшим за 20x20.");
+        if (rows > MAX_MATRIX_SIZE || cols > MAX_MATRIX_SIZE) {
+            System.out.println("Matrix size cannot be greater than 20x20.");
             return;
         }
 
-        // Вибір між ручним вводу або випадковим створенням
-        System.out.println("Виберіть спосіб створення матриці:");
-        System.out.println("1. Ручне введення");
-        System.out.println("2. Випадкове створення");
+        // Choose between manual input or random creation
+        System.out.println("Choose the matrix creation method:");
+        System.out.println("1. Manual input");
+        System.out.println("2. Random creation");
         int choice = scanner.nextInt();
 
         int[][] matrix = null;
@@ -142,24 +141,24 @@ public class MatrixCalculator {
         } else if (choice == 2) {
             matrix = createMatrixRandomly(rows, cols);
         } else {
-            System.out.println("Невірний вибір.");
+            System.out.println("Invalid choice.");
             return;
         }
 
-        // Виведення матриці
-        System.out.println("Матриця:");
+        // Printing the matrix
+        System.out.println("Matrix:");
         printMatrix(matrix);
 
-        // Обчислення мінімуму, максимуму, середнього арифметичного
+        // Calculating minimum, maximum, arithmetic mean
         int min = findMin(matrix);
         int max = findMax(matrix);
         double arithmeticMean = calculateArithmeticMean(matrix);
         double geometricMean = calculateGeometricMean(matrix);
 
-        // Виведення результатів
-        System.out.println("Мінімальний елемент: " + min);
-        System.out.println("Максимальний елемент: " + max);
-        System.out.println("Середнє арифметичне: " + arithmeticMean);
-        System.out.println("Середнє геометричне: " + (Double.isNaN(geometricMean) ? "Неможливо обчислити" : geometricMean));
+        // Printing the results
+        System.out.println("Minimum element: " + min);
+        System.out.println("Maximum element: " + max);
+        System.out.println("Arithmetic mean: " + arithmeticMean);
+        System.out.println("Geometric mean: " + (Double.isNaN(geometricMean) ? "Cannot calculate" : geometricMean));
     }
 }
