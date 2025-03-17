@@ -1,7 +1,8 @@
-package Lab.LR_3.model;
+package Lab.LR_4.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Faculty {
     private final String name;
@@ -16,7 +17,6 @@ public class Faculty {
 
     public void addDepartment(Department department) {
         departments.add(department);
-        System.out.println("✅ Department added: " + department.getName() + " | Total departments: " + departments.size());
     }
 
     public String getName() {
@@ -35,13 +35,22 @@ public class Faculty {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Faculty: ").append(name).append(", Head: ").append(head.getFullName()).append(" (").append(head.getSex()).append("), Departments: ").append(departments.size());
-        if (!departments.isEmpty()) {
-            sb.append("\n    ");
-            for (Department department : departments) {
-                sb.append(department.toString()).append("\n");
-            }
+        for (Department department : departments) {
+            sb.append("\n      ").append(department.toString());
         }
         return sb.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Faculty faculty = (Faculty) o;
+        return Objects.equals(name, faculty.name) && Objects.equals(head, faculty.head) && Objects.equals(departments, faculty.departments);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, head, departments);
+    }
 }
